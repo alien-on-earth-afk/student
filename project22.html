@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color: #000;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            color: #ff5500;
+            transition: transform 0.3s;
+        }
+
+        nav h1:hover {
+            transform: scale(1.1);
+        }
+
+        .menu {
+            display: none;
+            background-color: #000;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            width: 200px;
+            animation: fadeIn 0.3s;
+        }
+
+        .menu a {
+            display: block;
+            padding: 12px;
+            text-decoration: none;
+            color: white;
+            border-bottom: 1px solid #444;
+            transition: background-color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #ff5500;
+        }
+
+        .hamburger {
+            cursor: pointer;
+            font-size: 25px;
+            transition: transform 0.3s;
+        }
+
+        .hamburger:hover {
+            transform: rotate(90deg);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Top Section */
+        .top-section {
+            background-color: #1b1b1b;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .top-section h2 {
+            color: #ff5500;
+            font-size: 3em;
+        }
+
+        .description-card {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 10px;
+            position: relative;
+            border: 1px solid #888;
+            box-shadow: 0 0 15px #ff5500;
+        }
+
+        /* Features Section */
+        .features-section {
+            background-color: white;
+            padding: 40px;
+            text-align: left;
+        }
+
+        .features-title {
+            font-size: 2.5em;
+            color: black;
+            text-shadow: 2px 2px 5px silver;
+            margin-bottom: 30px;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            padding-left: 2%;
+        }
+
+        .card {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            margin: 30px auto;
+            width: 80%;
+            border-radius: 10px;
+            position: relative;
+            border: 1px solid #888;
+            box-shadow: 0 0 15px #ff5500;
+            overflow: hidden;
+        }
+
+        /* Mercury Lines */
+        .mercury-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            border-image: linear-gradient(45deg, silver, transparent, silver);
+            border-image-slice: 1;
+            animation: rotateMercury 8s linear infinite;
+        }
+
+        @keyframes rotateMercury {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Common Section Styling */
+        .section-title {
+            font-size: 2.5em;
+            color: black;
+            text-shadow: 2px 2px 5px silver;
+            margin-bottom: 40px;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            padding-left: 2%;
+            text-align: left;
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            background-color: #111;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonials-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: #1b1b1b;
+            border-radius: 15px;
+            padding: 25px;
+            width: 300px;
+            box-shadow: 0 0 15px rgba(255, 85, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border: 1px solid #333;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px rgba(255, 85, 0, 0.5);
+        }
+        
+        .testimonial-quote {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-quote i {
+            color: #ff5500;
+            font-size: 1.2em;
+            margin: 0 5px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid #ff5500;
+        }
+        
+        .testimonial-author p {
+            margin: 0;
+        }
+        
+        .testimonial-author span {
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            background-color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .step-card {
+            background-color: black;
+            color: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            width: 220px;
+            position: relative;
+            box-shadow: 0 0 15px rgba(255, 85, 0, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .step-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background-color: #ff5500;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 0 10px rgba(255, 85, 0, 0.5);
+        }
+        
+        .step-icon {
+            font-size: 2.5em;
+            color: #ff5500;
+            margin-bottom: 15px;
+        }
+        
+        .step-card h3 {
+            margin-bottom: 10px;
+            color: #ff5500;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            background-color: #111;
+            padding: 60px 40px;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #1b1b1b;
+            border: 1px solid #333;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background-color: #1b1b1b;
+            transition: background-color 0.3s;
+        }
+        
+        .faq-question:hover {
+            background-color: #222;
+        }
+        
+        .faq-question h3 {
+            margin: 0;
+            font-size: 1.1em;
+            color: #ff5500;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #111;
+        }
+        
+        .faq-answer p {
+            padding: 10px 0;
+            line-height: 1.6;
+        }
+        
+        .faq-active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-active .faq-answer {
+            max-height: 200px;
+        }
+        
+        /* Newsletter Section */
+        .newsletter-section {
+            background: linear-gradient(135deg, #000, #111, #000);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .newsletter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, #000 70%);
+            z-index: 1;
+        }
+        
+        .newsletter-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-content h2 {
+            color: #ff5500;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 25px;
+            justify-content: center;
+        }
+        
+        .newsletter-form input {
+            padding: 12px 15px;
+            width: 300px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            outline: none;
+            font-size: 1em;
+            background-color: #f2f2f2;
+        }
+        
+        .newsletter-form button {
+            background-color: #ff5500;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #ff7730;
+        }
+
+        /* Socials Section */
+        .socials {
+            background-color: #000;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .socials a {
+            margin: 0 15px;
+            font-size: 2em;
+            transition: transform 0.3s;
+            color: white;
+        }
+
+        .socials a:hover {
+            transform: scale(1.3);
+            color: #ff5500;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .testimonials-container, .steps-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step-card, .testimonial-card {
+                width: 80%;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .newsletter-form input {
+                width: 80%;
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form button {
+                width: 50%;
+                border-radius: 30px;
+            }
+        }
+        
+        
+      .home-service {
+      font-family: Arial, sans-serif;
+      background-color: white;
+      margin: 0;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    
+    .feature {
+      position: relative;
+      height: 120px;
+      width: 80px;
+      margin: 0 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .feature:hover .circle-bg {
+      box-shadow: 0 0 15px rgba(255, 165, 0, 0.7);
+    }
+    
+    .circle-bg {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      background-color: #FFA500;
+      border-radius: 50%;
+      z-index: 1;
+      transition: box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .feature-text {
+      position: relative;
+      z-index: 3;
+      color: #333;
+      font-weight: bold;
+      font-size: 10px;
+      text-align: center;
+      width: 60px;
+    }
+    
+    .icon-bg {
+      position: absolute;
+      top: 10px;
+      left: 2px;
+      width: 30px;
+      height: 30px;
+      background-color: #E74C3C;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+    }
+    
+    .red-semicircle {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid #E74C3C;
+      border-right: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      animation: rotate 8s linear infinite;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .teal-semicircle {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 2px solid #1ABC9C;
+      border-left: 2px solid transparent;
+      border-top: 2px solid transparent;
+      animation: rotate-reverse 8s linear infinite;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    @keyframes rotate {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+    @keyframes rotate-reverse {
+      0% { transform: translate(-50%, -50%) rotate(360deg); }
+      100% { transform: translate(-50%, -50%) rotate(0deg); }
+    }
+        
+        
+        
+        
+        
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <h1>Student Hub</h1>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <div class="menu" id="menu">
+            <a href="#">MCQ Generator</a>
+            <a href="#">Exam Planner</a>
+            <a href="#">To-Do List</a>
+            <a href="#">Quiz Events</a>
+            <a href="#">Leaderboard</a>
+        </div>
+    </nav>
+
+    <!-- Top Section -->
+    <div class="top-section">
+        <h2>Welcome to Student Hub!</h2>
+        <div class="description-card">
+            <p>
+                Student Hub is your one-stop platform for enhancing your academic journey. 
+                Create quizzes, plan exams, organize tasks, and compete against peers. 
+                Experience a sleek, modern interface designed to boost productivity and make learning fun!
+            </p>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section">
+        <div class="features-title">Features We Offer:</div>
+
+        <div class="card">
+            <div class="mercury-line"></div>
+            <h3>MCQ Generator</h3>
+            <p>Create quizzes from your own notes or popular topics to enhance your learning experience.</p>
+        </div>
+
+        <div class="card">
+            <div class="mercury-line"></div>
+            <h3>Exam Planner</h3>
+            <p>Plan your exams and study sessions like a pro, ensuring you never miss a beat.</p>
+        </div>
+
+        <div class="card">
+            <div class="mercury-line"></div>
+            <h3>To-Do List</h3>
+            <p>Stay organized with an efficient to-do list system.</p>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="testimonials-section">
+        <div class="section-title">What Students Say</div>
+        
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <div class="testimonial-quote">
+                    <i class="fas fa-quote-left"></i>
+                    Student Hub transformed my study habits. The MCQ generator helps me prepare for exams better than anything else I've tried!
+                    <i class="fas fa-quote-right"></i>
+                </div>
+                <div class="testimonial-author">
+                    <img src="/api/placeholder/80/80" alt="Student profile" class="testimonial-img">
+                    <p>Alex Johnson<br><span>Computer Science Major</span></p>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-quote">
+                    <i class="fas fa-quote-left"></i>
+                    The exam planner feature saved my semester. I'm now more organized and less stressed about deadlines.
+                    <i class="fas fa-quote-right"></i>
+                </div>
+                <div class="testimonial-author">
+                    <img src="/api/placeholder/80/80" alt="Student profile" class="testimonial-img">
+                    <p>Maya Patel<br><span>Biology Major</span></p>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-quote">
+                    <i class="fas fa-quote-left"></i>
+                    The competitive leaderboard keeps me motivated. Studying has actually become fun since I started using Student Hub!
+                    <i class="fas fa-quote-right"></i>
+                </div>
+                <div class="testimonial-author">
+                    <img src="/api/placeholder/80/80" alt="Student profile" class="testimonial-img">
+                    <p>Taylor Smith<br><span>Business Major</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="how-it-works">
+        <div class="section-title">How It Works</div>
+        
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-icon"><i class="fas fa-user-plus"></i></div>
+                <h3>Create an Account</h3>
+                <p>Sign up for free and customize your profile to get started.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-icon"><i class="fas fa-tools"></i></div>
+                <h3>Use Our Tools</h3>
+                <p>Generate MCQs, plan your exams, or organize your tasks.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Track Progress</h3>
+                <p>Monitor your improvement and compete on the leaderboard.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-icon"><i class="fas fa-trophy"></i></div>
+                <h3>Achieve Success</h3>
+                <p>Ace your exams and celebrate your academic victories!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <div class="section-title">Frequently Asked Questions</div>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Is Student Hub free to use?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! Student Hub offers a free tier with access to all basic features. We also offer a premium subscription with advanced features for power users.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I generate MCQs from my notes?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Simply upload your notes in PDF or text format, select the key topics you want to focus on, and our AI will generate relevant multiple-choice questions tailored to your material.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Can I collaborate with other students?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely! You can create study groups, share quizzes, and even compete in group challenges to make studying more interactive and fun.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How does the leaderboard system work?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You earn points for completing quizzes, maintaining study streaks, and achieving your goals. These points determine your ranking on our global and subject-specific leaderboards.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter Section -->
+    <div class="newsletter-section">
+        <div class="newsletter-content">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter for study tips, feature updates, and special offers.</p>
+            <div class="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Socials Section -->
+    <div class="socials">
+        <a href="https://www.instagram.com/krishna_nox0"><i class="fab fa-instagram"></i></a>
+        <a href="mailto:altalien01@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://twitter.com/krishna_nox0"><i class="fab fa-twitter"></i></a>
+        <a href="https://github.com/alien-on-earth-afk"><i class="fab fa-github"></i></a>
+   
+</div>
+
+<!--Hoke service-->
+<div class="home-service"> 
+<h1>Essential Features of On-Demand Home Services App (Customer Panel)</h1>
+  
+  <!-- First Row -->
+  <div class="row">
+    <!-- Feature 1: Login -->
+    <div class="feature">
+      <div class="circle-bg">
+        <div class="feature-text">Login</div>
+      </div>
+      <div class="red-semicircle"></div>
+      <div class="teal-semicircle"></div>
+      <div class="icon-bg">
+        <i class="fas fa-mobile-alt"></i>
+      </div>
+    </div>
+    
+    <!-- Feature 2: Quick Search -->
+    <div class="feature">
+      <div class="circle-bg">
+        <div class="feature-text">Quick Search</div>
+      </div>
+      <div class="red-semicircle"></div>
+      <div class="teal-semicircle"></div>
+      <div class="icon-bg">
+        <i class="fas fa-bolt"></i>
+      </div>
+    </div>
+    
+    <!-- Feature 3: Easy Filter -->
+    <div class="feature">
+      <div class="circle-bg">
+        <div class="feature-text">Easy Filter</div>
+      </div>
+      <div class="red-semicircle"></div>
+      <div class="teal-semicircle"></div>
+      <div class="icon-bg">
+        <i class="fas fa-filter"></i>
+      </div>
+    </div>
+    
+    <!-- Feature 4: Real-Time Approval Notifications -->
+    <div class="feature">
+      <div class="circle-bg">
+        <div class="feature-text">Real-Time<br>Approval<br>Notifications</div>
+      </div>
+      <div class="red-semicircle"></div>
+      <div class="teal-semicircle"></div>
+      <div class="icon-bg">
+        <i class="fas fa-bell"></i>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Second Row -->
+  <div class="row">
+    <!-- Feature 5: Book Services -->
+    <div class="feature">
+      <div class="circle-bg">
+        <div class="feature-text">Book Services</div>
+      </div>
+      <div class="red-semicircle"></div>
+      <div class="teal-semicircle"></div>
+      <div class="icon-bg">
+        <i class="fas fa-calendar-check"></i>
+      </div>
+    </div>
+    
+    <!-- Feature 6: Rating and Reviews -->
+    <div class="feature">
+      <div class="circle-bg">
+        <div class="feature-text">Rating and<br>Reviews</div>
+      </div>
+      <div class="red-semicircle"></div>
+      <div class="teal-semicircle"></div>
+      <div class="icon-bg">
+        <i class="fas fa-star"></i>
+      </div>
+    </div>
+    
+    <!-- Feature 7: Payment Gateway -->
+    <div class="feature">
+      <div class="circle-bg">
+        <div class="feature-text">Payment<br>Gateway</div>
+      </div>
+      <div class="red-semicircle"></div>
+      <div class="teal-semicircle"></div>
+      <div class="icon-bg">
+        <i class="fas fa-credit-card"></i>
+      </div>
+    </div>
+    
+    <!-- Feature 8: Help & Support -->
+    <div class="feature">
+      <div class="circle-bg">
+        <div class="feature-text">Help &<br>Support</div>
+      </div>
+      <div class="red-semicircle"></div>
+      <div class="teal-semicircle"></div>
+      <div class="icon-bg">
+        <i class="fas fa-comments"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('menu');
+            if (!menu.contains(event.target) && event.target.className !== 'hamburger') {
+                menu.style.display = 'none';
+            }
+        });
+        
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('faq-active');
+            
+            // Close other FAQs
+            const allFaqs = document.querySelectorAll('.faq-item');
+            allFaqs.forEach(item => {
+                if (item !== faqItem && item.classList.contains('faq-active')) {
+                    item.classList.remove('faq-active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
